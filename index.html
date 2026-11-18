@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rewa Bathula Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@700;900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Michroma&display=swap" rel="stylesheet">
+<style>
+/* Layout idea: the page is a stack of palette swatch bands; the hero holds a chip
+   floorplan whose blocks are the site's sections. Single theme by choice. */
+:root {
+  color-scheme: dark;
+  --cadet: #25344F;        /* Space Cadet: main ground */
+  --cadet-deep: #1B2740;   /* darker cadet for recessed bands */
+  --slate: #617891;        /* Slate Gray: traces, borders, fills */
+  --slate-light: #B4C2D2;  /* slate tint for secondary text on dark */
+  --tan: #D5B893;          /* Tan: primary ink on dark, light band */
+  --coffee: #6F4D38;       /* Coffee: warm band */
+  --mortuum: #632024;      /* Caput Mortuum: accent band and fills */
+  --font-display: "Michroma", "Eurostile", "Arial Black", sans-serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --gutter: clamp(16px, 4vw, 48px);
+  --max: 1120px;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 64px; }
+body {
+  margin: 0;
+  background: var(--cadet);
+  color: var(--tan);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--tan); outline-offset: 3px; }
+.band-tan :focus-visible { outline-color: var(--cadet); }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 400; text-wrap: balance; margin: 0; }
+h2 { font-size: clamp(1.9rem, 4.2vw, 2.9rem); }
+h1, h2 { font-family: "Lato", "Helvetica Neue", Arial, sans-serif; font-weight: 900; text-transform: uppercase; letter-spacing: -0.01em; line-height: 1.05; }
+p { margin: 0; }
+.mono { font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.06em; text-transform: uppercase; }
+.wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
+section { padding: clamp(56px, 9vw, 104px) 0; }
+.section-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 24px; margin-bottom: clamp(28px, 4vw, 44px); }
+.section-head p { color: var(--slate-light); max-width: 46ch; }
+
+/* ---------- Nav ---------- */
+.nav {
+  position: sticky; top: 0; z-index: 20;
+  background: color-mix(in srgb, var(--cadet-deep) 92%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid color-mix(in srgb, var(--slate) 45%, transparent);
+}
+.nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 56px; }
+.mark { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-family: "Lato", "Helvetica Neue", Arial, sans-serif; font-weight: 900; font-size: 0.95rem; letter-spacing: 0.06em; }
+.mark i {
+  width: 22px; height: 22px; background: var(--mortuum); border: 1px solid var(--tan);
+  box-shadow: -4px 0 0 -2px var(--tan), 4px 0 0 -2px var(--tan), 0 -4px 0 -2px var(--tan), 0 4px 0 -2px var(--tan);
+}
+.nav ul { display: flex; flex-wrap: wrap; gap: 4px 22px; list-style: none; margin: 0; padding: 8px 0; }
+.nav ul a { text-decoration: none; color: var(--slate-light); font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 4px 0; }
+.nav ul a:hover { color: var(--tan); }
+
+/* ---------- Hero ---------- */
+.hero {
+  padding: clamp(48px, 8vw, 96px) 0 clamp(56px, 8vw, 96px);
+  background-image: radial-gradient(color-mix(in srgb, var(--slate) 55%, transparent) 1px, transparent 1.5px);
+  background-size: 22px 22px;
+}
+.hero .wrap { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: clamp(32px, 6vw, 72px); align-items: center; }
+.hero h1 { font-size: clamp(2.8rem, 7.4vw, 5.4rem); line-height: 1; margin: 18px 0 22px; }
+.hero .lede { font-size: clamp(1.05rem, 1.6vw, 1.25rem); max-width: 34ch; color: var(--tan); }
+.hero .mono { color: var(--slate-light); }
+.cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+.btn {
+  display: inline-block; text-decoration: none; font-family: var(--font-mono); font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 12px 18px; border: 1px solid var(--tan); color: var(--tan); transition: background 0.15s, color 0.15s;
+}
+.btn.solid { background: var(--tan); color: var(--cadet-deep); }
+.btn:hover { background: var(--mortuum); color: var(--tan); border-color: var(--tan); }
+
+/* Chip floorplan */
+.chip { justify-self: center; width: 100%; max-width: 440px; }
+.die {
+  position: relative; aspect-ratio: 1; padding: 9%;
+  background: var(--cadet-deep); border: 1px solid var(--slate);
+  box-shadow: 0 24px 60px -24px rgba(0, 0, 0, 0.6);
+}
+/* bond pads on all four edges */
+.die::before, .die::after { content: ""; position: absolute; pointer-events: none; }
+.die::before {
+  inset: 2.6% 9%;
+  background:
+    repeating-linear-gradient(90deg, var(--tan) 0 8px, transparent 8px 20px) top / 100% 8px no-repeat,
+    repeating-linear-gradient(90deg, var(--tan) 0 8px, transparent 8px 20px) bottom / 100% 8px no-repeat;
+}
+.die::after {
+  inset: 9% 2.6%;
+  background:
+    repeating-linear-gradient(0deg, var(--tan) 0 8px, transparent 8px 20px) left / 8px 100% no-repeat,
+    repeating-linear-gradient(0deg, var(--tan) 0 8px, transparent 8px 20px) right / 8px 100% no-repeat;
+}
+.core { display: grid; grid-template-columns: repeat(6, 1fr); grid-template-rows: repeat(6, 1fr); gap: 6px; height: 100%; }
+.blk {
+  display: flex; flex-direction: column; justify-content: space-between; gap: 4px;
+  padding: 8px 10px; text-decoration: none; overflow: hidden;
+  font-family: var(--font-mono); font-size: clamp(0.62rem, 1.3vw, 0.74rem); letter-spacing: 0.06em; text-transform: uppercase;
+  border: 1px solid color-mix(in srgb, var(--tan) 35%, transparent);
+  transition: transform 0.15s, border-color 0.15s;
+}
+.blk:hover { transform: translateY(-2px); border-color: var(--tan); }
+.blk small { font-size: 0.85em; opacity: 0.75; text-transform: none; letter-spacing: 0.02em; }
+.b-about { grid-area: 1 / 1 / 3 / 4; background: var(--coffee); color: var(--tan); }
+.b-exp   { grid-area: 1 / 4 / 3 / 7; background: var(--slate); color: var(--cadet-deep); }
+.b-proj  { grid-area: 3 / 1 / 6 / 5; background: var(--mortuum); color: var(--tan); }
+.b-photo { grid-area: 3 / 5 / 6 / 7; background: var(--tan); color: var(--cadet-deep); }
+.b-off   { grid-area: 6 / 1 / 7 / 4; background: var(--cadet); color: var(--tan); }
+.b-contact { grid-area: 6 / 4 / 7 / 7; background: var(--cadet); color: var(--tan); }
+.b-off, .b-contact { flex-direction: row; align-items: center; }
+.b-exp small, .b-photo small { opacity: 0.85; }
+.lanes { display: grid; gap: 5px; margin-top: auto; }
+.lane { position: relative; height: 9px; background: color-mix(in srgb, var(--cadet-deep) 70%, transparent); overflow: hidden; }
+.lane::after {
+  content: ""; position: absolute; inset: 0; width: 34%;
+  background: var(--tan); transform: translateX(-110%);
+  animation: exec 2.4s cubic-bezier(0.5, 0, 0.3, 1) infinite;
+}
+.lane:nth-child(2)::after { animation-delay: 0.12s; }
+.lane:nth-child(3)::after { animation-delay: 0.24s; }
+.lane:nth-child(4)::after { animation-delay: 0.36s; }
+@keyframes exec { 0%, 25% { transform: translateX(-110%); } 75%, 100% { transform: translateX(300%); } }
+.fsm { display: flex; align-items: center; gap: 8px; margin-top: 14px; color: var(--slate-light); flex-wrap: wrap; }
+.fsm span { padding: 3px 8px; border: 1px solid var(--slate); animation: state 2.4s steps(1) infinite; }
+.fsm span:nth-of-type(2) { animation-delay: 0.6s; }
+.fsm span:nth-of-type(3) { animation-delay: 1.2s; }
+@keyframes state { 0% { background: var(--tan); color: var(--cadet-deep); border-color: var(--tan); } 25%, 100% { background: transparent; color: inherit; border-color: var(--slate); } }
+.fsm em { font-style: normal; margin-left: auto; text-transform: none; letter-spacing: 0.02em; }
+
+/* ---------- About (tan band) ---------- */
+.band-tan { background: var(--tan); color: var(--cadet-deep); }
+.band-tan .section-head p { color: var(--coffee); }
+.about-grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); gap: clamp(28px, 5vw, 64px); align-items: start; }
+.about-text { display: grid; gap: 18px; max-width: 62ch; font-size: 1.08rem; }
+.about-text strong { font-weight: 600; color: var(--mortuum); }
+.spec { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+.spec caption { text-align: left; padding-bottom: 10px; color: var(--coffee); }
+.spec th, .spec td { text-align: left; vertical-align: top; padding: 12px 0; border-top: 1px solid color-mix(in srgb, var(--cadet) 35%, transparent); }
+.spec tr:last-child th, .spec tr:last-child td { border-bottom: 1px solid color-mix(in srgb, var(--cadet) 35%, transparent); }
+.spec th { width: 34%; padding-right: 16px; font-family: var(--font-mono); font-weight: 500; font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--coffee); }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; margin: 0; padding: 0; }
+.tags li { font-family: var(--font-mono); font-size: 0.76rem; padding: 3px 8px; border: 1px solid currentColor; }
+.spec .tags li { border-color: var(--cadet); }
+
+/* ---------- Projects ---------- */
+.projects { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.proj {
+  display: flex; flex-direction: column; gap: 16px; padding: 24px;
+  background: var(--cadet-deep); border: 1px solid color-mix(in srgb, var(--slate) 60%, transparent);
+  border-top: 3px solid var(--slate);
+}
+.proj.feature { grid-column: 1 / -1; border-top-color: var(--tan); display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); gap: 24px 40px; }
+.proj.feature .body { display: flex; flex-direction: column; gap: 16px; }
+.proj header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 12px; }
+.proj h3 { font-size: 1.05rem; letter-spacing: 0.03em; }
+.pill { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 3px 8px; white-space: nowrap; }
+.pill.done { background: var(--slate); color: var(--cadet-deep); }
+.pill.wip { background: var(--mortuum); color: var(--tan); }
+.proj p { color: var(--slate-light); font-size: 0.98rem; }
+.proj .tags { color: var(--slate-light); }
+.proj .tags li { border-color: var(--slate); }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px 20px; margin: 0; }
+.proj.feature .stats { grid-template-columns: 1fr; align-content: center; border-left: 1px solid var(--slate); padding-left: 28px; }
+.stats div { display: grid; gap: 2px; }
+.stats dt { order: 2; font-size: 0.82rem; color: var(--slate-light); line-height: 1.35; }
+.stats dd { order: 1; margin: 0; font-family: var(--font-display); font-size: 1.35rem; color: var(--tan); font-variant-numeric: tabular-nums; }
+.repo { margin-top: auto; align-self: flex-start; font-family: var(--font-mono); font-size: 0.82rem; text-underline-offset: 4px; color: var(--tan); }
+.repo:hover { color: var(--slate-light); }
+
+/* ---------- Experience ---------- */
+.band-deep { background: var(--cadet-deep); }
+.roles { display: grid; gap: 0; }
+.role { display: grid; grid-template-columns: minmax(0, 0.32fr) minmax(0, 0.68fr); gap: 8px 32px; padding: 26px 0; border-top: 1px solid var(--slate); }
+.role:last-child { border-bottom: 1px solid var(--slate); }
+.role .when { color: var(--slate-light); padding-top: 4px; }
+.role h3 { font-family: "Lato", "Helvetica Neue", Arial, sans-serif; font-weight: 900; font-size: 1.3rem; letter-spacing: 0.01em; line-height: 1.2; margin-bottom: 4px; }
+.role .title { color: var(--slate-light); margin-bottom: 12px; }
+.role ul { margin: 0; padding-left: 18px; display: grid; gap: 6px; max-width: 64ch; }
+.role li::marker { color: var(--slate); }
+
+/* ---------- Photography ---------- */
+.gallery { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.shot { position: relative; padding: 0; border: 0; background: var(--cadet-deep); cursor: zoom-in; aspect-ratio: 2 / 3; overflow: hidden; }
+.shot.big { grid-column: span 2; grid-row: span 2; }
+.shot.wide { grid-column: span 2; aspect-ratio: auto; }
+.shot.wide img { position: absolute; inset: 0; }
+.shot img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+.shot:hover img { transform: scale(1.04); }
+.shot span {
+  position: absolute; left: 0; right: 0; bottom: 0; padding: 28px 12px 10px; text-align: left;
+  font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--tan);
+  background: linear-gradient(transparent, rgba(15, 22, 38, 0.85));
+  opacity: 0; transition: opacity 0.2s;
+}
+.shot:hover span, .shot:focus-visible span { opacity: 1; }
+dialog.lightbox { border: 0; padding: 0; background: transparent; max-width: 100vw; max-height: 100vh; width: 100vw; height: 100vh; color: var(--tan); }
+dialog.lightbox::backdrop { background: rgba(15, 22, 38, 0.94); }
+.lb { display: grid; grid-template-rows: 1fr auto; height: 100%; padding: 16px; gap: 12px; justify-items: center; }
+.lb img { max-height: calc(100vh - 110px); width: auto; max-width: 100%; align-self: center; object-fit: contain; }
+.lb-bar { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; justify-content: center; }
+.lb-bar button { font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.06em; text-transform: uppercase; background: transparent; color: var(--tan); border: 1px solid var(--tan); padding: 8px 14px; cursor: pointer; }
+.lb-bar button:hover { background: var(--mortuum); }
+.lb-bar p { min-width: 16ch; text-align: center; color: var(--slate-light); }
+
+/* ---------- Off the clock (coffee band) ---------- */
+.band-coffee { background: var(--coffee); color: var(--tan); }
+.off { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: clamp(24px, 5vw, 64px); align-items: center; }
+.off-list { font-family: var(--font-display); font-size: clamp(1.3rem, 3.4vw, 2.3rem); line-height: 1.35; list-style: none; margin: 0; padding: 0; }
+.off-list li + li { border-top: 1px solid color-mix(in srgb, var(--tan) 35%, transparent); }
+.off-list li { padding: 8px 0; }
+.off p { max-width: 46ch; font-size: 1.08rem; }
+.off h2 { margin-bottom: 18px; }
+
+/* ---------- Project tiles + detail dialog ---------- */
+.projects { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.tile { position: relative; display: flex; flex-direction: column; background: var(--cadet-deep); border: 1px solid color-mix(in srgb, var(--slate) 60%, transparent); border-top: 3px solid var(--slate); transition: border-color 0.15s, transform 0.15s; }
+.tile:hover, .tile:focus-within { border-color: var(--tan); transform: translateY(-3px); }
+.tile .art { border: 0; border-bottom: 1px solid color-mix(in srgb, var(--slate) 55%, transparent); min-height: 190px; }
+.tile .art figcaption { display: none; }
+.tile-meta { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; padding: 16px 18px 46px; }
+.tile-meta h3 { font-family: "Lato", "Helvetica Neue", Arial, sans-serif; font-weight: 900; font-size: 1.15rem; letter-spacing: 0.01em; line-height: 1.2; overflow-wrap: anywhere; }
+.tile-meta p { color: var(--slate-light); font-size: 0.9rem; margin-top: 4px; }
+.tile-hit { position: absolute; inset: 0; width: 100%; background: transparent; border: 0; cursor: pointer; color: var(--tan); display: flex; align-items: flex-end; justify-content: flex-start; padding: 0 18px 16px; }
+.tile-hit:focus-visible { outline: 2px solid var(--tan); outline-offset: 2px; }
+.tile-more { font-size: 0.74rem; border-bottom: 1px solid currentColor; }
+.tile:hover .tile-more::after { content: " →"; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.proj-dialog { width: min(980px, calc(100vw - 24px)); max-height: calc(100vh - 32px); padding: 0; border: 1px solid var(--tan); background: var(--cadet-deep); color: var(--tan); }
+.proj-dialog::backdrop { background: rgba(15, 22, 38, 0.86); }
+.pd-bar { position: sticky; top: 0; z-index: 2; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 16px; background: var(--cadet-deep); border-bottom: 1px solid var(--slate); color: var(--slate-light); }
+.pd-bar .btn { padding: 8px 14px; }
+.pd-body { display: grid; gap: 22px; padding: clamp(18px, 3vw, 32px); }
+.pd-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; }
+.pd-head h3 { font-family: "Lato", "Helvetica Neue", Arial, sans-serif; font-weight: 900; text-transform: uppercase; font-size: clamp(1.5rem, 3.4vw, 2.2rem); line-height: 1.05; overflow-wrap: anywhere; }
+.pd-body .art { min-height: 220px; font-size: 0.82rem; }
+.pd-grid { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.6fr); gap: 24px 36px; align-items: start; }
+.pd-text { display: grid; gap: 18px; justify-items: start; }
+.pd-text p { color: var(--slate-light); font-size: 1.02rem; max-width: 62ch; }
+.pd-text .tags { color: var(--slate-light); }
+.pd-text .tags li { border-color: var(--slate); }
+.pd-grid .stats { grid-template-columns: 1fr; border-left: 1px solid var(--slate); padding-left: 24px; }
+
+/* ---------- Portrait + project art ---------- */
+.portrait { margin: 0 0 6px; max-width: 260px; padding: 10px; background: var(--cadet-deep); border: 1px solid var(--cadet);
+  box-shadow: -5px 0 0 -3px var(--cadet), 5px 0 0 -3px var(--cadet); }
+.portrait img { aspect-ratio: 4 / 5; object-fit: cover; width: 100%; height: auto; }
+.art { margin: 0; padding: 16px; background: var(--cadet); border: 1px solid color-mix(in srgb, var(--slate) 55%, transparent); font-family: var(--font-mono); font-size: 0.74rem; min-height: 150px; display: flex; flex-direction: column; justify-content: center; gap: 8px; }
+.art figcaption { color: var(--slate-light); font-size: 0.72rem; margin-top: 4px; }
+.bar-row { display: grid; grid-template-columns: 9.5em minmax(0, 1fr) 5.6em; align-items: center; gap: 10px; color: var(--slate-light); }
+.bt { height: 12px; background: var(--cadet-deep); }
+.bt i { display: block; height: 100%; background: var(--slate); }
+.bar-row.hl { color: var(--tan); }
+.bar-row.hl .bt i { background: var(--tan); }
+.bv { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.art-podium { flex-direction: row; flex-wrap: wrap; align-items: flex-end; justify-content: center; gap: 6px; }
+.art-podium figcaption { flex-basis: 100%; text-align: center; }
+.pod { width: 70px; display: flex; justify-content: center; padding-top: 8px; color: var(--cadet-deep); }
+.pod b { font-weight: 500; }
+.p1 { height: 92px; background: var(--tan); }
+.p2 { height: 68px; background: var(--slate-light); }
+.p3 { height: 50px; background: var(--coffee); color: var(--tan); }
+.art-parse { align-items: flex-start; }
+.art-parse .say { font-family: var(--font-body); font-size: 1rem; color: var(--tan); }
+.art-parse .down { width: 2px; height: 14px; margin-left: 14px; background: var(--slate); }
+.art-parse pre { margin: 0; color: var(--slate-light); white-space: pre-wrap; line-height: 1.5; }
+.steps { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+.steps span { text-align: center; padding: 18px 0; font-size: 0.66rem; }
+.steps .w { background: var(--cadet-deep); color: var(--slate-light); border: 1px dashed var(--slate); }
+.steps .t { background: var(--mortuum); color: var(--tan); }
+.window { margin-left: calc(2 / 7 * 100% + 2px); border: 1px solid var(--tan); border-top: 0; height: 14px; position: relative; }
+.window span { position: absolute; left: 50%; top: 14px; transform: translateX(-50%); white-space: nowrap; color: var(--tan); }
+.art-meter figcaption { margin-top: 22px; }
+.art-wave { gap: 6px; }
+.wv { display: grid; grid-template-columns: 3.6em minmax(0, 1fr); align-items: center; gap: 10px; }
+.wl { color: var(--slate-light); }
+.sig { height: 18px; }
+.sig.clk { background: repeating-linear-gradient(90deg, transparent 0 1px, var(--tan) 1px 2px, transparent 2px calc(100% / 12 - 1px), var(--tan) calc(100% / 12 - 1px) calc(100% / 12)),
+  repeating-linear-gradient(90deg, var(--cadet) 0 calc(100% / 12), transparent calc(100% / 12) calc(100% / 6)); border-bottom: 1px solid var(--tan); box-shadow: inset 0 1px 0 0 var(--cadet); }
+.sig.bus { display: grid; grid-template-columns: repeat(6, 1fr); }
+.sig.bus em { font-style: normal; display: flex; align-items: center; justify-content: center; font-size: 0.64rem; border-top: 1px solid var(--slate); border-bottom: 1px solid var(--slate); clip-path: polygon(6px 0, calc(100% - 6px) 0, 100% 50%, calc(100% - 6px) 100%, 6px 100%, 0 50%); background: var(--cadet-deep); color: var(--tan); }
+.sig.bus em:empty { background: transparent; border-color: color-mix(in srgb, var(--slate) 50%, transparent); }
+.sig.mask em:not(:empty) { color: var(--slate-light); background: repeating-linear-gradient(45deg, var(--cadet-deep) 0 4px, var(--cadet) 4px 8px); }
+.proj.feature .art-wave { margin-bottom: 4px; }
+
+/* ---------- Inside tinygpu (coffee band) ---------- */
+.inside-panel { grid-column: 1 / -1; padding: clamp(20px, 3.4vw, 40px); border: 1px solid var(--tan); }
+.inside-panel[hidden] { display: none; }
+.inside-title { font-family: "Lato", "Helvetica Neue", Arial, sans-serif; font-weight: 900; text-transform: uppercase; font-size: clamp(1.5rem, 3vw, 2.1rem); line-height: 1.05; }
+.card-actions { margin-top: auto; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; }
+.card-actions .repo { margin-top: 0; align-self: auto; }
+button.btn { background: transparent; cursor: pointer; }
+#tinygpu-card { cursor: pointer; }
+.inside { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); gap: clamp(28px, 5vw, 64px); align-items: center; }
+.inside-text { display: grid; gap: 24px; }
+.inside-text > p { max-width: 52ch; }
+.inside-text .mono { margin-bottom: 10px; }
+.arch { display: grid; gap: 0; background: var(--cadet-deep); border: 1px solid var(--tan); padding: clamp(14px, 2.4vw, 24px); font-family: var(--font-mono); font-size: 0.74rem; }
+.a-top { display: grid; grid-template-columns: 1fr 18px 1fr 18px 1fr; align-items: center; }
+.a-arrow { height: 2px; background: var(--tan); position: relative; }
+.a-arrow::after { content: ""; position: absolute; right: 0; top: -4px; border-left: 6px solid var(--tan); border-top: 5px solid transparent; border-bottom: 5px solid transparent; }
+.a-box { border: 1px solid var(--slate); background: var(--cadet); padding: 10px; text-transform: uppercase; letter-spacing: 0.05em; line-height: 1.35; }
+.a-box small, .a-lane span { display: block; text-transform: none; letter-spacing: 0.01em; color: var(--slate-light); font-size: 0.95em; }
+.a-bus { text-align: center; color: var(--tan); font-size: 0.68rem; padding: 12px 0; margin: 0 12%; border-left: 2px solid var(--tan); border-right: 2px solid var(--tan); background: linear-gradient(var(--tan), var(--tan)) center / 2px 100% no-repeat; }
+.a-bus::first-line { background: var(--cadet-deep); }
+.a-lanes { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.a-lane { display: grid; gap: 6px; padding: 8px; background: var(--mortuum); border: 1px solid var(--tan); }
+.a-lane b { font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; }
+.a-lane span { background: var(--cadet-deep); color: var(--tan); padding: 5px 6px; }
+.a-mem { text-align: center; border-color: var(--tan); }
+.area { display: flex; height: 18px; border: 1px solid var(--tan); }
+.area-key { list-style: none; margin: 10px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 4px 16px; font-size: 0.9rem; font-variant-numeric: tabular-nums; }
+.area-key i { display: inline-block; width: 10px; height: 10px; margin-right: 8px; border: 1px solid var(--tan); }
+
+/* ---------- Contact (caput mortuum band) ---------- */
+.band-mortuum { background: var(--mortuum); color: var(--tan); }
+.contact { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px 40px; }
+.contact h2 { font-size: clamp(2rem, 4.6vw, 3.2rem); max-width: 18ch; }
+.contact p { margin-top: 12px; max-width: 44ch; }
+.band-mortuum .btn:hover { background: var(--cadet-deep); }
+footer { background: var(--cadet-deep); color: var(--slate-light); padding: 22px 0; }
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 860px) {
+  .hero .wrap, .about-grid, .off, .inside, .pd-grid { grid-template-columns: minmax(0, 1fr); }
+  .proj.feature .stats { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); border-left: 0; padding-left: 0; border-top: 1px solid var(--slate); padding-top: 18px; }
+  .projects { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pd-grid .stats { border-left: 0; padding-left: 0; border-top: 1px solid var(--slate); padding-top: 18px; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
+  .role { grid-template-columns: minmax(0, 1fr); }
+  .chip { max-width: 380px; justify-self: start; }
+}
+@media (max-width: 640px) {
+  .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .projects { grid-template-columns: minmax(0, 1fr); }
+  .shot.wide { aspect-ratio: 3 / 2; }
+  .nav ul { gap: 2px 14px; }
+  .a-lanes { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .a-top { grid-template-columns: 1fr; gap: 8px; }
+  .a-arrow { display: none; }
+  .mark b { display: none; }
+  .shot span { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .lane::after { animation: none; transform: translateX(60%); }
+  .fsm span { animation: none; }
+  .shot img, .blk { transition: none; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Sections">
+  <div class="wrap">
+    <a class="mark" href="#top"><i aria-hidden="true"></i><b>REWA BATHULA</b></a>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#photography">Photography</a></li>
+      <li><a href="https://medium.com/@rewapraga">Blog</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div>
+      <p class="mono">Computer Engineering · UC Santa Cruz</p>
+      <h1>Rewa Bathula</h1>
+      <p class="lede">I build things where software meets silicon: a GPU core in Verilog, CUDA kernels, and AI inference systems.</p>
+      <div class="cta">
+        <a class="btn solid" href="#projects">See projects</a>
+        <a class="btn" href="https://github.com/rewap23">GitHub</a>
+        <a class="btn" href="https://www.linkedin.com/in/rewa-bathula/">LinkedIn</a>
+        <a class="btn" href="https://medium.com/@rewapraga">Blog</a>
+      </div>
+    </div>
+
+    <div class="chip">
+      <div class="die">
+        <div class="core" role="navigation" aria-label="Site floorplan">
+          <a class="blk b-about" href="#about">About<small>control unit · who I am</small></a>
+          <a class="blk b-exp" href="#experience">Experience<small>memory · research + internship</small></a>
+          <a class="blk b-proj" href="#projects">Projects<small>compute lanes · 6 builds</small>
+            <span class="lanes" aria-hidden="true"><span class="lane"></span><span class="lane"></span><span class="lane"></span><span class="lane"></span></span>
+          </a>
+          <a class="blk b-photo" href="#photography">Photos<small>framebuffer · 20 frames</small></a>
+          <a class="blk b-off" href="#inside-tinygpu">Inside tinygpu<small>datapath</small></a>
+          <a class="blk b-contact" href="#contact">Contact<small>I/O</small></a>
+        </div>
+      </div>
+      <p class="fsm mono" aria-hidden="true"><span>Idle</span><span>Fetch</span><span>Exec</span><em>Site floorplan. Pick a block.</em></p>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section class="band-tan" id="about">
+  <div class="wrap">
+    <div class="section-head"><h2>About me</h2></div>
+    <div class="about-grid">
+      <div class="about-text">
+        <figure class="portrait">
+          <img src="photos/rewa.jpg" width="900" height="1125" alt="Rewa Bathula standing in front of blue and white hydrangeas">
+        </figure>
+        <p>I'm a second-year <strong>Computer Engineering</strong> student at UC Santa Cruz. I like GPUs: how they are designed, how they schedule work across thousands of threads, and how to write code that runs fast on them.</p>
+        <p>Most of my projects link software and hardware. I've written a small four-lane GPU core in Verilog, tuned CUDA kernels with machine learning, and benchmarked inference on NVIDIA and AMD accelerators.</p>
+        <p>Away from the keyboard I paint, play basketball and piano, and take photos. I also like picking up skills that have nothing to do with school, mostly to see how they work.</p>
+      </div>
+      <table class="spec">
+        <caption class="mono">Specifications</caption>
+        <tr><th scope="row">Degree</th><td>B.S. Computer Engineering, UC Santa Cruz. Expected June 2029.</td></tr>
+        <tr><th scope="row">Languages</th><td><ul class="tags"><li>Python</li><li>C</li><li>C++ / CUDA</li><li>Verilog</li></ul></td></tr>
+        <tr><th scope="row">Interests</th><td><ul class="tags"><li>GPU architecture</li><li>GPU design</li><li>GPU computing</li><li>AI inference systems</li></ul></td></tr>
+        <tr><th scope="row">RTL + EDA</th><td><ul class="tags"><li>Icarus Verilog</li><li>Yosys</li><li>GTKWave</li><li>Make</li></ul></td></tr>
+        <tr><th scope="row">GPU compute</th><td><ul class="tags"><li>CUDA</li><li>Triton</li><li>TensorRT</li><li>ROCm</li></ul></td></tr>
+        <tr><th scope="row">ML + infra</th><td><ul class="tags"><li>PyTorch</li><li>XGBoost</li><li>FastAPI</li><li>Docker</li><li>GitHub Actions</li></ul></td></tr>
+        <tr><th scope="row">Honors</th><td>Dean's List, Winter 2026 and Summer 2026. Machine Learning Specialization, DeepLearning.AI and Stanford.</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Tech projects</h2>
+      <p>Select a project to read the full write-up and open its code.</p>
+    </div>
+    <div class="projects">
+      <article class="tile">
+        <figure class="art art-wave" aria-label="Waveform-style trace of the scheduler and four lanes">
+  <div class="wv"><span class="wl">clk</span><span class="sig clk"></span></div>
+  <div class="wv"><span class="wl">state</span><span class="sig bus"><em>IDLE</em><em>FETCH</em><em>EXEC</em><em>FETCH</em><em>EXEC</em><em>RET</em></span></div>
+  <div class="wv"><span class="wl">lane0</span><span class="sig bus"><em></em><em></em><em>LDR</em><em></em><em>ADD</em><em></em></span></div>
+  <div class="wv"><span class="wl">lane1</span><span class="sig bus"><em></em><em></em><em>LDR</em><em></em><em>ADD</em><em></em></span></div>
+  <div class="wv"><span class="wl">lane2</span><span class="sig bus"><em></em><em></em><em>LDR</em><em></em><em>ADD</em><em></em></span></div>
+  <div class="wv"><span class="wl">lane3</span><span class="sig bus mask"><em></em><em></em><em>masked</em><em></em><em>masked</em><em></em></span></div>
+</figure>
+        <div class="tile-meta">
+          <div><h3>tinygpu</h3><p>A 4-lane GPU core in Verilog</p></div>
+          <span class="pill done">Working + tested</span>
+        </div>
+        <button class="tile-hit" type="button" data-proj="tinygpu" aria-haspopup="dialog"><span class="tile-more mono">Open project</span><span class="sr">Open tinygpu</span></button>
+      </article>
+      <article class="tile">
+        <figure class="art art-bars" aria-label="Mean regret on 13 held-out shapes. Lower is better."><div class="bar-row hl"><span class="bl">XGBoost</span><span class="bt"><i style="width:17.3%"></i></span><span class="bv">1.10%</span></div><div class="bar-row"><span class="bl">Always tile 32</span><span class="bt"><i style="width:75.7%"></i></span><span class="bv">4.82%</span></div><div class="bar-row"><span class="bl">PyTorch MLP</span><span class="bt"><i style="width:92.2%"></i></span><span class="bv">5.87%</span></div><div class="bar-row"><span class="bl">Always tile 16</span><span class="bt"><i style="width:100.0%"></i></span><span class="bv">6.37%</span></div><figcaption>Mean regret on 13 held-out shapes. Lower is better.</figcaption></figure>
+        <div class="tile-meta">
+          <div><h3>gpu-kernel-autotuning</h3><p>ML picks the fastest CUDA tile size</p></div>
+          <span class="pill done">Complete</span>
+        </div>
+        <button class="tile-hit" type="button" data-proj="gpu-kernel-autotuning" aria-haspopup="dialog"><span class="tile-more mono">Open project</span><span class="sr">Open gpu-kernel-autotuning</span></button>
+      </article>
+      <article class="tile">
+        <figure class="art art-bars" aria-label="ResNet-18 on a T4, batch 8, ms per batch. Lower is better."><div class="bar-row"><span class="bl">Eager FP32</span><span class="bt"><i style="width:100.0%"></i></span><span class="bv">8.486 ms</span></div><div class="bar-row"><span class="bl">TensorRT FP16</span><span class="bt"><i style="width:37.4%"></i></span><span class="bv">3.177 ms</span></div><div class="bar-row hl"><span class="bl">TensorRT INT8</span><span class="bt"><i style="width:31.4%"></i></span><span class="bv">2.662 ms</span></div><figcaption>ResNet-18 on a T4, batch 8, ms per batch. Lower is better.</figcaption></figure>
+        <div class="tile-meta">
+          <div><h3>mini-inference-lab</h3><p>ResNet-18 inference on NVIDIA and AMD</p></div>
+          <span class="pill done">Exploratory study</span>
+        </div>
+        <button class="tile-hit" type="button" data-proj="mini-inference-lab" aria-haspopup="dialog"><span class="tile-more mono">Open project</span><span class="sr">Open mini-inference-lab</span></button>
+      </article>
+      <article class="tile">
+        <figure class="art art-meter" aria-label="Benchmark flow: warm-up steps are excluded, then a telemetry window wraps the timed steps">
+  <div class="steps"><span class="w">warm-up</span><span class="w">warm-up</span><span class="t">timed</span><span class="t">timed</span><span class="t">timed</span><span class="t">timed</span><span class="t">timed</span></div>
+  <div class="window"><span>telemetry window</span></div>
+  <figcaption>Warm-up is excluded. Only the timed steps are measured.</figcaption>
+</figure>
+        <div class="tile-meta">
+          <div><h3>gpumeter</h3><p>Reproducible GPU training benchmarks</p></div>
+          <span class="pill done">Complete</span>
+        </div>
+        <button class="tile-hit" type="button" data-proj="gpumeter" aria-haspopup="dialog"><span class="tile-more mono">Open project</span><span class="sr">Open gpumeter</span></button>
+      </article>
+      <article class="tile">
+        <figure class="art art-podium" aria-label="Podium illustration">
+  <div class="pod p2"><b>P2</b></div><div class="pod p1"><b>P1</b></div><div class="pod p3"><b>P3</b></div>
+  <figcaption>Ranks all 22 drivers by podium probability.</figcaption>
+</figure>
+        <div class="tile-meta">
+          <div><h3>f1-race-predictor</h3><p>Podium odds from qualifying data</p></div>
+          <span class="pill done">Complete</span>
+        </div>
+        <button class="tile-hit" type="button" data-proj="f1-race-predictor" aria-haspopup="dialog"><span class="tile-more mono">Open project</span><span class="sr">Open f1-race-predictor</span></button>
+      </article>
+      <article class="tile">
+        <figure class="art art-parse" aria-label="Example: a sentence parsed into structured fields">
+  <p class="say">"Turn on the kitchen lights"</p>
+  <i class="down" aria-hidden="true"></i>
+  <pre>{ "intent": "device_control",
+  "action": "turn_on",
+  "device": "light",
+  "location": "kitchen" }</pre>
+</figure>
+        <div class="tile-meta">
+          <div><h3>smart-home-command-parser</h3><p>Commands to device actions, from scratch</p></div>
+          <span class="pill wip">In progress</span>
+        </div>
+        <button class="tile-hit" type="button" data-proj="smart-home-command-parser" aria-haspopup="dialog"><span class="tile-more mono">Open project</span><span class="sr">Open smart-home-command-parser</span></button>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="band-deep" id="experience">
+  <div class="wrap">
+    <div class="section-head"><h2>Experience</h2></div>
+    <div class="roles">
+      <article class="role">
+        <p class="mono when">Dec 2025 to present</p>
+        <div>
+          <h3>Tech4Good, Santa Cruz</h3>
+          <p class="title">Researcher, Generative AI &amp; Idea Prototyping Team</p>
+        </div>
+      </article>
+      <article class="role">
+        <p class="mono when">Fall 2026</p>
+        <div>
+          <h3>IDX Exchange</h3>
+          <p class="title">AI Agentic Engineer Intern</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="photography">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Photography</h2>
+      <p>Wildlife, waterfronts and buildings. Select a photo to view it larger.</p>
+    </div>
+    <div class="gallery" id="gallery">
+      <button class="shot big" type="button"><img src="photos/pier-dusk.jpg" width="1000" height="1500" alt="A ferry docked at a waterfront pier at dusk, with a lit Ferris wheel and city lights reflecting on the water"><span>Waterfront at blue hour</span></button>
+      <button class="shot" type="button"><img src="photos/sea-lions.jpg" width="1000" height="1500" alt="A sea lion barking on a rock, surrounded by others resting"><span>Sea lions</span></button>
+      <button class="shot" type="button"><img src="photos/macaw.jpg" width="1000" height="1500" alt="A scarlet macaw preening on a branch among vines"><span>Scarlet macaw</span></button>
+      <button class="shot" type="button"><img src="photos/monument-night.jpg" width="1000" height="1500" alt="The Washington Monument lit at night, mirrored in the Reflecting Pool"><span>Washington Monument</span></button>
+      <button class="shot" type="button"><img src="photos/ducklings.jpg" width="1000" height="1500" alt="A mother duck beside a huddle of sleeping ducklings at the water's edge"><span>Ducklings</span></button>
+      <button class="shot" type="button"><img src="photos/library-of-congress.jpg" width="1000" height="1500" loading="lazy" alt="A bronze torch-bearing statue below a painted, vaulted ceiling and marble columns"><span>Library of Congress</span></button>
+      <button class="shot" type="button"><img src="photos/slipper-orchid.jpg" width="1000" height="1500" loading="lazy" alt="A magenta slipper orchid in front of ferns and mossy rock"><span>Slipper orchid</span></button>
+      <button class="shot" type="button"><img src="photos/sailboat.jpg" width="1000" height="1500" loading="lazy" alt="A white sailboat alone on dark blue water, seen from above"><span>Sailboat</span></button>
+      <button class="shot" type="button"><img src="photos/sea-lion-pups.jpg" width="1000" height="1500" loading="lazy" alt="Two sandy sea lion pups touching noses on a rock, seen from above"><span>Sea lion pups</span></button>
+      <button class="shot wide" type="button"><img src="photos/ocean-sunset.jpg" width="1500" height="1000" loading="lazy" alt="The sun touching the ocean horizon under orange and purple clouds, with waves breaking on a dark shore"><span>Sunset over the Pacific</span></button>
+      <button class="shot" type="button"><img src="photos/shark-fin-cove.jpg" width="1000" height="1500" loading="lazy" alt="A fin-shaped sea stack rising from a small cove between cliffs under a clear sky"><span>Shark Fin Cove</span></button>
+      <button class="shot" type="button"><img src="photos/capitol.jpg" width="1000" height="1500" loading="lazy" alt="The US Capitol dome framed by leafy branches against a cloudy sky"><span>US Capitol</span></button>
+      <button class="shot" type="button"><img src="photos/old-ebbitt.jpg" width="1000" height="1500" loading="lazy" alt="The lit marble entrance of Old Ebbitt Grill at night"><span>Old Ebbitt Grill</span></button>
+      <button class="shot" type="button"><img src="photos/turtles.jpg" width="1001" height="1500" loading="lazy" alt="Two spotted turtles on a rock, one in sharp focus"><span>Spotted turtles</span></button>
+      <button class="shot" type="button"><img src="photos/yellow-orchids.jpg" width="1000" height="1500" loading="lazy" alt="A cascade of yellow orchid blossoms"><span>Dendrobium orchids</span></button>
+      <button class="shot" type="button"><img src="photos/pavilion.jpg" width="1000" height="1500" loading="lazy" alt="A curved colonnade with ornate capitals against a blue sky"><span>Colonnade</span></button>
+      <button class="shot" type="button"><img src="photos/jefferson-memorial.jpg" width="1000" height="1500" loading="lazy" alt="Curved marble colonnade with Ionic columns beside a dark evergreen at dusk"><span>Jefferson Memorial</span></button>
+      <button class="shot" type="button"><img src="photos/hibiscus.jpg" width="1001" height="1500" loading="lazy" alt="A pink hibiscus with pale yellow petal edges and a dark center"><span>Hibiscus</span></button>
+      <button class="shot" type="button"><img src="photos/sea-lion-pup-barking.jpg" width="1001" height="1500" loading="lazy" alt="A sea lion pup sprawled on a rock ledge, barking"><span>Barking pup</span></button>
+      <button class="shot" type="button"><img src="photos/mall-golden-hour.jpg" width="1000" height="1500" loading="lazy" alt="Low sun bursting between tree trunks over people sitting on a lawn"><span>Golden hour</span></button>
+    </div>
+  </div>
+</section>
+
+<section class="band-mortuum" id="contact">
+  <div class="wrap contact">
+    <div>
+      <h2>Want to talk GPUs?</h2>
+      <p>I'm looking for chances to work on GPU and ML infrastructure. Reach me on LinkedIn, see what I'm building on GitHub, or read what I'm learning on my Medium blog.</p>
+    </div>
+    <div class="cta" style="margin-top:0">
+      <a class="btn solid" href="https://www.linkedin.com/in/rewa-bathula/">LinkedIn</a>
+      <a class="btn" href="https://github.com/rewap23">GitHub</a>
+      <a class="btn" href="https://medium.com/@rewapraga">Medium blog</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap mono">
+    <span>Rewa Bathula</span>
+    <span>Fremont, California</span>
+    <span>Site built with Claude</span>
+  </div>
+</footer>
+
+<dialog class="proj-dialog" id="proj-dialog" aria-labelledby="pd-title">
+  <div class="pd-bar"><span class="mono" id="pd-title">Project</span><button type="button" class="btn" id="pd-close">Close</button></div>
+  <div class="pd-body" id="pd-body"></div>
+</dialog>
+<template id="detail-tinygpu">
+  <header class="pd-head"><h3>tinygpu</h3><span class="pill done">Working + tested</span></header>
+  <figure class="art art-wave" aria-label="Waveform-style trace of the scheduler and four lanes">
+  <div class="wv"><span class="wl">clk</span><span class="sig clk"></span></div>
+  <div class="wv"><span class="wl">state</span><span class="sig bus"><em>IDLE</em><em>FETCH</em><em>EXEC</em><em>FETCH</em><em>EXEC</em><em>RET</em></span></div>
+  <div class="wv"><span class="wl">lane0</span><span class="sig bus"><em></em><em></em><em>LDR</em><em></em><em>ADD</em><em></em></span></div>
+  <div class="wv"><span class="wl">lane1</span><span class="sig bus"><em></em><em></em><em>LDR</em><em></em><em>ADD</em><em></em></span></div>
+  <div class="wv"><span class="wl">lane2</span><span class="sig bus"><em></em><em></em><em>LDR</em><em></em><em>ADD</em><em></em></span></div>
+  <div class="wv"><span class="wl">lane3</span><span class="sig bus mask"><em></em><em></em><em>masked</em><em></em><em>masked</em><em></em></span></div>
+</figure>
+  <div class="pd-grid">
+    <div class="pd-text">
+      <p>A GPU-style core written from scratch in Verilog. One instruction runs across four lanes, each on its own data. It has a three-state scheduler, a decoder, per-lane register files and ALUs, shared memory, thread masking, and an 8-instruction set with a Python assembler. It runs vector add, subtract and multiply kernels.</p>
+      <ul class="tags"><li>Verilog</li><li>Python</li><li>Icarus Verilog</li><li>Yosys</li><li>GTKWave</li></ul>
+      <a class="btn solid" href="https://github.com/rewap23/tinygpu">View code on GitHub</a>
+    </div>
+    <dl class="stats"><div><dt>parallel lanes per instruction</dt><dd>4</dd></div><div><dt>ALU test vectors, checked exhaustively</dt><dd>262,144</dd></div><div><dt>cells after Yosys synthesis</dt><dd>10,711</dd></div></dl>
+  </div>
+  <div class="inside-panel band-coffee" id="inside-tinygpu"><div class="inside">
+          <div class="arch" role="img" aria-label="tinygpu datapath: instruction memory feeds a scheduler and decoder, which broadcast one instruction to four lanes, each with a register file, ALU and write-back; all lanes share one data memory">
+            <div class="a-top">
+              <div class="a-box">Instruction memory<small>16-bit words</small></div>
+              <i class="a-arrow" aria-hidden="true"></i>
+              <div class="a-box">Scheduler<small>idle, fetch, exec</small></div>
+              <i class="a-arrow" aria-hidden="true"></i>
+              <div class="a-box">Decoder<small>opcode, regs, imm</small></div>
+            </div>
+            <p class="a-bus mono">one instruction, broadcast to every lane</p>
+            <div class="a-lanes">
+              <div class="a-lane"><b>Lane 0</b><span>Register file</span><span>ALU</span><span>Write-back</span></div>
+              <div class="a-lane"><b>Lane 1</b><span>Register file</span><span>ALU</span><span>Write-back</span></div>
+              <div class="a-lane"><b>Lane 2</b><span>Register file</span><span>ALU</span><span>Write-back</span></div>
+              <div class="a-lane"><b>Lane 3</b><span>Register file</span><span>ALU</span><span>Write-back</span></div>
+            </div>
+            <p class="a-bus mono">thread mask gates every write</p>
+            <div class="a-box a-mem">Shared data memory<small>read and written by all four lanes</small></div>
+          </div>
+          <div class="inside-text">
+            <h3 class="inside-title">Inside tinygpu</h3>
+            <p>The same instruction goes to four lanes at once. Each lane keeps its own 16 registers, three of them read-only (block index, block size, thread index), so identical code works on different data. That is the core idea behind how a real GPU runs a kernel.</p>
+            <div>
+              <p class="mono">Where the 10,711 synthesized cells go</p>
+              <div class="area" aria-hidden="true"><i style="flex:57;background:var(--mortuum)"></i><i style="flex:18;background:var(--slate)"></i><i style="flex:10;background:var(--tan)"></i><i style="flex:15;background:var(--cadet)"></i></div>
+              <ul class="area-key">
+                <li><i style="background:var(--mortuum)"></i>Data memory, 6,107 cells (57%)</li>
+                <li><i style="background:var(--slate)"></i>Register files, 4 × 487 (18%)</li>
+                <li><i style="background:var(--tan)"></i>ALUs, 4 × 257 (10%)</li>
+                <li><i style="background:var(--cadet)"></i>Scheduler, decoder and glue (15%)</li>
+              </ul>
+            </div>
+            <div>
+              <p class="mono">Next on the roadmap</p>
+              <ul class="tags"><li>Pipelining</li><li>Branches + divergence</li><li>MAC + matmul kernel</li><li>Banked memory</li><li>cocotb + formal</li><li>OpenROAD layout</li></ul>
+            </div>
+          </div>
+        </div></div>
+</template>
+<template id="detail-gpu-kernel-autotuning">
+  <header class="pd-head"><h3>gpu-kernel-autotuning</h3><span class="pill done">Complete</span></header>
+  <figure class="art art-bars" aria-label="Mean regret on 13 held-out shapes. Lower is better."><div class="bar-row hl"><span class="bl">XGBoost</span><span class="bt"><i style="width:17.3%"></i></span><span class="bv">1.10%</span></div><div class="bar-row"><span class="bl">Always tile 32</span><span class="bt"><i style="width:75.7%"></i></span><span class="bv">4.82%</span></div><div class="bar-row"><span class="bl">PyTorch MLP</span><span class="bt"><i style="width:92.2%"></i></span><span class="bv">5.87%</span></div><div class="bar-row"><span class="bl">Always tile 16</span><span class="bt"><i style="width:100.0%"></i></span><span class="bv">6.37%</span></div><figcaption>Mean regret on 13 held-out shapes. Lower is better.</figcaption></figure>
+  <div class="pd-grid">
+    <div class="pd-text">
+      <p>Machine learning picks the fastest tile size for a CUDA tiled matmul kernel, replacing brute-force search. I benchmarked 190+ configurations on a T4 and trained XGBoost and a PyTorch MLP on the results.</p>
+      <ul class="tags"><li>CUDA C++</li><li>Python</li><li>XGBoost</li><li>PyTorch</li></ul>
+      <a class="btn solid" href="https://github.com/rewap23/gpu-kernel-autotuning">View code on GitHub</a>
+    </div>
+    <dl class="stats"><div><dt>mean regret, XGBoost, 13 held-out shapes</dt><dd>1.10%</dd></div><div><dt>mean regret, best fixed tile size</dt><dd>4.82%</dd></div></dl>
+  </div>
+  
+</template>
+<template id="detail-mini-inference-lab">
+  <header class="pd-head"><h3>mini-inference-lab</h3><span class="pill done">Exploratory study</span></header>
+  <figure class="art art-bars" aria-label="ResNet-18 on a T4, batch 8, ms per batch. Lower is better."><div class="bar-row"><span class="bl">Eager FP32</span><span class="bt"><i style="width:100.0%"></i></span><span class="bv">8.486 ms</span></div><div class="bar-row"><span class="bl">TensorRT FP16</span><span class="bt"><i style="width:37.4%"></i></span><span class="bv">3.177 ms</span></div><div class="bar-row hl"><span class="bl">TensorRT INT8</span><span class="bt"><i style="width:31.4%"></i></span><span class="bv">2.662 ms</span></div><figcaption>ResNet-18 on a T4, batch 8, ms per batch. Lower is better.</figcaption></figure>
+  <div class="pd-grid">
+    <div class="pd-text">
+      <p>A ResNet-18 inference study across two vendors: TensorRT FP16 and INT8 on an NVIDIA T4, torch.compile on an AMD MI300X, and a handwritten Triton normalization kernel. The kernel was faster alone but gave no end-to-end gain, which was the useful lesson.</p>
+      <ul class="tags"><li>PyTorch</li><li>TensorRT</li><li>Triton</li><li>ROCm</li></ul>
+      <a class="btn solid" href="https://github.com/rewap23/mini-inference-lab">View code on GitHub</a>
+    </div>
+    <dl class="stats"><div><dt>TensorRT INT8 vs eager FP32 on T4</dt><dd>3.19x</dd></div><div><dt>Triton kernel vs eager normalization</dt><dd>2.29x</dd></div></dl>
+  </div>
+  
+</template>
+<template id="detail-gpumeter">
+  <header class="pd-head"><h3>gpumeter</h3><span class="pill done">Complete</span></header>
+  <figure class="art art-meter" aria-label="Benchmark flow: warm-up steps are excluded, then a telemetry window wraps the timed steps">
+  <div class="steps"><span class="w">warm-up</span><span class="w">warm-up</span><span class="t">timed</span><span class="t">timed</span><span class="t">timed</span><span class="t">timed</span><span class="t">timed</span></div>
+  <div class="window"><span>telemetry window</span></div>
+  <figcaption>Warm-up is excluded. Only the timed steps are measured.</figcaption>
+</figure>
+  <div class="pd-grid">
+    <div class="pd-text">
+      <p>A reproducible PyTorch benchmarking tool for training throughput, built toward measuring GPU energy per sample. A telemetry layer keeps the runner independent of any one hardware monitor. It has a CLI, batch-size sweeps, Docker and CI.</p>
+      <ul class="tags"><li>Python</li><li>PyTorch</li><li>Docker</li><li>GitHub Actions</li></ul>
+      <a class="btn solid" href="https://github.com/rewap23/gpumeter">View code on GitHub</a>
+    </div>
+    
+  </div>
+  
+</template>
+<template id="detail-f1-race-predictor">
+  <header class="pd-head"><h3>f1-race-predictor</h3><span class="pill done">Complete</span></header>
+  <figure class="art art-podium" aria-label="Podium illustration">
+  <div class="pod p2"><b>P2</b></div><div class="pod p1"><b>P1</b></div><div class="pod p3"><b>P3</b></div>
+  <figcaption>Ranks all 22 drivers by podium probability.</figcaption>
+</figure>
+  <div class="pd-grid">
+    <div class="pd-text">
+      <p>Predicts Formula 1 podium probabilities from qualifying data. A Random Forest trained on the 2018 to 2024 seasons and tested on 2025, served by FastAPI behind a plain HTML, CSS and JavaScript dashboard.</p>
+      <ul class="tags"><li>Python</li><li>scikit-learn</li><li>FastF1</li><li>FastAPI</li></ul>
+      <a class="btn solid" href="https://github.com/rewap23/f1-race-predictor">View code on GitHub</a>
+    </div>
+    <dl class="stats"><div><dt>AUC on the held-out 2025 season</dt><dd>0.951</dd></div><div><dt>races in the dataset</dt><dd>149</dd></div></dl>
+  </div>
+  
+</template>
+<template id="detail-smart-home-command-parser">
+  <header class="pd-head"><h3>smart-home-command-parser</h3><span class="pill wip">In progress</span></header>
+  <figure class="art art-parse" aria-label="Example: a sentence parsed into structured fields">
+  <p class="say">"Turn on the kitchen lights"</p>
+  <i class="down" aria-hidden="true"></i>
+  <pre>{ "intent": "device_control",
+  "action": "turn_on",
+  "device": "light",
+  "location": "kitchen" }</pre>
+</figure>
+  <div class="pd-grid">
+    <div class="pd-text">
+      <p>A Transformer trained from scratch in PyTorch that turns commands like "turn on the kitchen lights" into structured, validated device actions. The FastAPI foundation is in place. The dataset, model, and deployment are still to come.</p>
+      <ul class="tags"><li>Python</li><li>PyTorch</li><li>FastAPI</li></ul>
+      <a class="btn solid" href="https://github.com/rewap23/smart-home-command-parser">View code on GitHub</a>
+    </div>
+    
+  </div>
+  
+</template>
+
+<dialog class="lightbox" id="lightbox" aria-label="Photo viewer">
+  <div class="lb">
+    <img id="lb-img" src="" alt="">
+    <div class="lb-bar">
+      <button type="button" id="lb-prev">Previous</button>
+      <p class="mono" id="lb-cap"></p>
+      <button type="button" id="lb-next">Next</button>
+      <button type="button" id="lb-close">Close</button>
+    </div>
+  </div>
+</dialog>
+
+<script>
+(function () {
+  var shots = Array.prototype.slice.call(document.querySelectorAll('#gallery .shot'));
+  var box = document.getElementById('lightbox');
+  var img = document.getElementById('lb-img');
+  var cap = document.getElementById('lb-cap');
+  var i = 0;
+  function show(n) {
+    i = (n + shots.length) % shots.length;
+    var src = shots[i].querySelector('img');
+    img.src = src.getAttribute('src');
+    img.alt = src.alt;
+    cap.textContent = shots[i].querySelector('span').textContent + '  ' + (i + 1) + ' / ' + shots.length;
+  }
+  shots.forEach(function (b, n) {
+    b.addEventListener('click', function () {
+      show(n);
+      if (box.showModal) { box.showModal(); } else { box.setAttribute('open', ''); }
+    });
+  });
+  document.getElementById('lb-prev').addEventListener('click', function () { show(i - 1); });
+  document.getElementById('lb-next').addEventListener('click', function () { show(i + 1); });
+  document.getElementById('lb-close').addEventListener('click', function () { box.close(); });
+  box.addEventListener('click', function (e) { if (e.target === box || e.target.classList.contains('lb')) { box.close(); } });
+  var pd = document.getElementById('proj-dialog');
+  var pdBody = document.getElementById('pd-body');
+  var pdTitle = document.getElementById('pd-title');
+  function openProject(id, focusInside) {
+    var t = document.getElementById('detail-' + id);
+    if (!t) { return; }
+    pdBody.innerHTML = '';
+    pdBody.appendChild(t.content.cloneNode(true));
+    pdTitle.textContent = id;
+    if (pd.showModal) { pd.showModal(); } else { pd.setAttribute('open', ''); }
+    pdBody.scrollTop = 0;
+    if (focusInside) {
+      var ins = pdBody.querySelector('#inside-tinygpu');
+      if (ins) { ins.scrollIntoView({ block: 'start' }); }
+    }
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('.tile-hit'), function (btn) {
+    btn.addEventListener('click', function () { openProject(btn.getAttribute('data-proj'), false); });
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('a[href="#inside-tinygpu"]'), function (a) {
+    a.addEventListener('click', function (e) { e.preventDefault(); openProject('tinygpu', true); });
+  });
+  document.getElementById('pd-close').addEventListener('click', function () { pd.close(); });
+  pd.addEventListener('click', function (e) { if (e.target === pd) { pd.close(); } });
+  box.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowLeft') { show(i - 1); }
+    if (e.key === 'ArrowRight') { show(i + 1); }
+  });
+})();
+</script>
+</body>
+</html>
